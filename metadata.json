@@ -1,0 +1,6 @@
+{
+  "name": "Neon Synth Arcade",
+  "description": "A dark neon aesthetic web app featuring a fully playable classic Snake game and an integrated music player with 3 pre-loaded AI-synthwave tracks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

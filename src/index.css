@@ -1,0 +1,89 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+@layer utilities {
+  .font-glitch { font-family: 'VT323', monospace; }
+  
+  .glitch-text { position: relative; display: inline-block; font-weight: bold;}
+  .glitch-text::before, .glitch-text::after {
+    content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000;
+  }
+  .glitch-text::before {
+    left: 4px; text-shadow: -2px 0 magenta; color: #0ff;
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+  }
+  .glitch-text::after {
+    left: -4px; text-shadow: -2px 0 cyan; color: magenta;
+    animation: glitch-anim 2.5s infinite linear alternate-reverse;
+  }
+
+  .jarring-border {
+    border: 4px solid #0ff; box-shadow: 8px 8px 0 #f0f;
+  }
+  .jarring-border-alt {
+    border: 4px solid #f0f; box-shadow: -8px -8px 0 #0ff;
+  }
+  
+  .btn-glitch {
+    border: 4px solid #0ff; background: #000; color: #0ff; text-transform: uppercase; transition: 0.1s; cursor: pointer; padding: 0.5rem 1rem; font-family: 'VT323', monospace; font-size: 1.5rem;
+  }
+  .btn-glitch:hover {
+    background: #f0f; color: #000; border-color: #0ff; box-shadow: 4px 4px 0 #0ff; transform: translate(-2px, -2px);
+  }
+  
+  .snake-grid-glitch {
+    background: #000; border: 4px solid #0ff; box-shadow: inset 0 0 20px rgba(255,0,255,0.5), 8px 8px 0 #f0f; padding: 2px;
+  }
+  .cell-empty { background: rgba(0,255,255,0.05); }
+  .cell-snake { background: #0ff; box-shadow: 2px 2px 0 #f0f; border-radius: 0; }
+  .cell-head { background: #fff; box-shadow: 2px 2px 0 #0ff; border-radius: 0; }
+  .cell-food { background: #f0f; box-shadow: -2px -2px 0 #0ff; border-radius: 0; animation: flash 0.2s infinite; }
+  
+  .screen-tear { animation: tear 3s infinite; }
+  .crt-overlay {
+    pointer-events: none; position: fixed; inset: 0; z-index: 50;
+    background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%), linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06));
+    background-size: 100% 4px, 4px 100%;
+  }
+
+  /* Distorted noise background */
+  .bg-noise {
+    background-image: repeating-radial-gradient(circle at 17% 32%, rgb(255, 0, 255, 0.1), transparent 0.00085px), repeating-radial-gradient(circle at 80% 20%, rgb(0, 255, 255, 0.1), transparent 0.00085px);
+  }
+}
+
+@keyframes glitch-anim {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-4px, 2px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(4px, -2px); filter: hue-rotate(90deg); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(4px, 4px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(-4px, -2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(4px, 2px); filter: hue-rotate(-90deg); }
+  100% { clip-path: inset(30% 0 20% 0); transform: translate(-4px, -4px); }
+}
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(4px, 2px); }
+  20% { clip-path: inset(30% 0 20% 0); transform: translate(-4px, -2px); }
+  40% { clip-path: inset(70% 0 10% 0); transform: translate(4px, 4px); filter: invert(1); }
+  60% { clip-path: inset(20% 0 50% 0); transform: translate(-4px, -2px); }
+  80% { clip-path: inset(90% 0 5% 0); transform: translate(4px, 2px); }
+  100% { clip-path: inset(40% 0 30% 0); transform: translate(-4px, -4px); }
+}
+@keyframes tear {
+  0%, 94% { transform: translateX(0) skewX(0); }
+  95% { transform: translateX(-20px) skewX(-15deg); filter: invert(0.8); }
+  96% { transform: translateX(20px) skewX(15deg); filter: drop-shadow(5px 5px 0 #f0f); }
+  97% { transform: translateX(0) skewX(0); filter: none; }
+}
+@keyframes flash {
+  0%, 49% { background: #f0f; }
+  50%, 100% { background: #0ff; border: 2px solid #fff; }
+}
+
+body {
+  background-color: #000;
+  color: #0ff;
+  margin: 0;
+  padding: 0;
+  font-family: 'VT323', 'Courier New', Courier, monospace;
+  overflow-x: hidden;
+}
